@@ -1,4 +1,4 @@
-let quizTimeEl = document.querySelector("p.quiz-time");
+let quizTimeEl = document.querySelector("p.time");
 let secondsRemaining = 80;
 let finalScoreEl = document.querySelector("#finalscore");
 
@@ -37,7 +37,7 @@ const returnButton = document.querySelector("#return");
 const clearUserHighScores = document.querySelector("#clearhighscores");
 const highScores = document.querySelector("#highscores");
 
-const quizquestions = [
+const quizQuestions = [
     {
         question: "Commonly used data types do NOT include:",
         answers: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
@@ -71,7 +71,7 @@ function setTime() {
         secondsRemaining--;
         quizTimeEl.textContent = `Time:${secondsRemaining}s`;
 
-        if (secondsRemaining === 0 || count === quizquestions.length) {
+        if (secondsRemaining === 0 || count === quizQuestions.length) {
             clearInterval(timerInterval);
             quizQuestionsEl.style.display = "none";
             endOfQuizEl.style.display = "block";
@@ -91,12 +91,12 @@ function quizStartup() {
 };
 
 function setQuestion(id) {
-    if (id < quizquestions.length) {
-        quizQuestionsEl.textContent = quizquestions[id].question;
-        firstAnswer.textContent = quizquestions[id].answers[0];
-        secondAnswer.textContent = quizquestions[id].answers[1];
-        thirdAnswer.textContent = quizquestions[id].answers[2];
-        fourthAnswer.textContent = quizquestions[id].answers[3];
+    if (id < quizQuestions.length) {
+        quizQuestionOptionEl.textContent = quizQuestions[id].question;
+        firstAnswer.textContent = quizQuestions[id].answers[0];
+        secondAnswer.textContent = quizQuestions[id].answers[1];
+        thirdAnswer.textContent = quizQuestions[id].answers[2];
+        fourthAnswer.textContent = quizQuestions[id].answers[3];
     }
 };
 
@@ -105,9 +105,9 @@ function checkTheAnswer(event) {
     event.preventDefault();
 
     // show section for rightorwronganswer and append message
-    rightorwronganswer.style.display = "block";
+    rightOrWrongAnswerEl.style.display = "block";
     let p = document.createElement("p");
-    rightorwronganswer.appendChild(p);
+    rightOrWrongAnswerEl.appendChild(p);
 
     // this will time out after 1 second
     setTimeout(function () {
@@ -115,14 +115,14 @@ function checkTheAnswer(event) {
     }, 1000);
 
     // this will check the answer
-    if (quizquestions[count].correctAnswer === event.target.value) {
+    if (quizQuestions[count].correctAnswer === event.target.value) {
         p.textContent = "Correct!";
-    } else if (quizquestions[count].correctAnswer !== event.target.value) {
+    } else if (quizQuestions[count].correctAnswer !== event.target.value) {
         secondsRemaining = secondsRemaining - 10;
         p.textContent = "Wrong!";
     }
 
-    if (count < quizquestions.length) {
+    if (count < quizQuestions.length) {
         count++;
     }
     setQuestion(count);
@@ -137,7 +137,7 @@ function totalScore(event) {
     let inits = userInitials.value.toUpperCase();
     highScoresList.push({ Initials: inits, Score: secondsRemaining });
 
-    // sort scores
+    // This will sort hire scores in order from high to low
     highScoresList = highScoresList.sort((a, b) => {
         if (a.finalscore < b.finalscore) {
           return 1;
@@ -149,10 +149,10 @@ function totalScore(event) {
     highScoresListEl.innerHTML="";
     for (let i = 0; i < highScoresList.length; i++) {
         let li = document.createElement("li");
-        li.textContent = `${highScoresList[i].initials}: ${highScoresList[i].finalscore}`;
-        scoreListEl.append(li);
+        li.textContent = `${highScoresList[i].userinitials}: ${highScoresList[i].finalscore}`;
+        highScoresListEl.append(li);
     }
-     // Add to local storage
+     // Adds the score to local storage
      storeHighScores();
      displayHighScores();
 };
