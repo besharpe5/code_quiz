@@ -1,7 +1,4 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
     font-family: 'Helvetica', sans-serif;
 }
 
@@ -10,8 +7,27 @@
     --secondary: #708090;
 }
 
-body{
+body {
     background: var(--primary);
     color: var(--secondary);
 }
 
+#quizquestions, 
+#endofquiz, 
+#userhighscores, 
+#rightorwronganswer {
+    display: none;
+}
+
+ul.nobulletsdisplayed {
+    list-style-type: none;
+}
+
+.quizAnswerButton,
+.quizAnswerButton:hover,
+.quizAnswerButton:active,
+.quizAnswerButton:focus,
+.quizAnswerButton:active:focus {
+    box-shadow: none;
+    outline: none;
+}
